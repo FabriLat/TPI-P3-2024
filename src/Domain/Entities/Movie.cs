@@ -17,5 +17,11 @@ namespace Domain.Entities
         public string Title { get; set; }
 
         public List<Show> Shows { get; set; }
+
+        public Movie (string title)
+        {
+            Title = title;
+            Shows = new List<Show> ();
+        }
     }
 }

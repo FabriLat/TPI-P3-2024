@@ -9,7 +9,7 @@ namespace Domain.Entities
 {
     public class Client : User
     {
-        public List<Show> Shows { get; set; }
+        public List<Show> ShowsBuyed { get; set; }
         
         public Client(string name, EmailAddressAttribute email, string password) 
         {
@@ -17,6 +17,7 @@ namespace Domain.Entities
             Email = email;
             Password = password;
             UserRole = Enums.UserType.Client;
+            ShowsBuyed = new List<Show>();
         }
     }
 }
