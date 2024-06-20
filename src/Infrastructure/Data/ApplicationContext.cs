@@ -11,10 +11,7 @@ namespace Infrastructure.Data
     public class ApplicationContext : DbContext
     {
         private readonly bool isTestingEnvironment;
-        public DbSet<Admin> Admins { get; set; }
-        public DbSet<Client> Clients { get; set; }
         public DbSet<Movie> Movies { get; set; }
-        public DbSet<Show> Shows { get; set; }
         public DbSet<User> Users { get; set; }
 
 
