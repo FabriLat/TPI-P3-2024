@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities.admin
+namespace Domain.Entities
 {
-    internal class Admin
+    public class Admin : User
     {
+        public Admin() { }
+        public Admin(string name, string email, string password)
+        {
+            UserName = name;
+            Email = email;
+            Password = password;
+            UserRole = Enums.UserType.Admin;
+        }
     }
 }

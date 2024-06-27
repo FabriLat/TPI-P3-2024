@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Enums
 {
-    internal class UserType
+    public enum UserType
     {
+        Admin,
+        Client
     }
 }
