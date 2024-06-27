@@ -9,7 +9,8 @@ namespace Domain.Entities
 {
     public class Admin : User
     {
-        public Admin(string name, EmailAddressAttribute email, string password)
+        public Admin() { }
+        public Admin(string name, string email, string password)
         {
             UserName = name;
             Email = email;

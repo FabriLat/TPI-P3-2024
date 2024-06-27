@@ -11,7 +11,8 @@ namespace Domain.Entities
     {
         public List<Show> ShowsBuyed { get; set; }
         
-        public Client(string name, EmailAddressAttribute email, string password) 
+        public Client() { }
+        public Client(string name, string email, string password) 
         {
             UserName = name;
             Email = email;

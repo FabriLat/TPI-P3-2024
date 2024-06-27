@@ -18,6 +18,12 @@ namespace Domain.Entities
 
         public List<Show> Shows { get; set; }
 
+
+        public Movie()
+        {
+            Shows = new List<Show>();
+        }
+
         public Movie (string title)
         {
             Title = title;

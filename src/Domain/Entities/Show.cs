@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +10,10 @@ namespace Domain.Entities
 {
     public class Show
     {
-        public string MovieName { get; set; }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public int MovieId { get; set; }  // Foreign Key
         public TimeSpan RunTime { get; set; }
 
         public TimeSpan StartTime { get; set; }
@@ -19,9 +23,10 @@ namespace Domain.Entities
         public int SeatsAvailable { get; set; }
 
 
-        public Show(string movieName, TimeSpan runTime, TimeSpan startTime) 
+        public Show() { }
+
+        public Show(TimeSpan runTime, TimeSpan startTime) 
         {
-            MovieName = movieName;
             RunTime = runTime;
             StartTime = startTime;
             EndTime = StartTime.Add(RunTime);

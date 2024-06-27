@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class User
+    public abstract class User
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,9 +21,8 @@ namespace Domain.Entities
 
         public string Password { get; set; }
 
-
-        [EmailAddress(ErrorMessage = "Email invalido")]
-        public EmailAddressAttribute Email { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
 
         public UserType UserRole { get; set; }
     }
