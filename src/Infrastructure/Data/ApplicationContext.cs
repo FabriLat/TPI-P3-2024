@@ -30,6 +30,24 @@ namespace Infrastructure.Data
                     .HasValue<Client>(UserType.Client)
                     .HasValue<Admin>(UserType.Admin);
 
+            // Relación de uno a muchos entre Movie y Show
+            modelBuilder.Entity<Movie>()
+                .HasMany(m => m.Shows)
+                .WithOne()
+                .HasForeignKey(s => s.MovieId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Relación entre Client y Show
+            modelBuilder.Entity<Client>()
+                .HasMany(c => c.ShowsBuyed)
+                .WithMany()
+                .UsingEntity<Dictionary<string, object>>( //tabla que mantiene la relacion entre un cliente y distintas finciones mediante ids
+                    "ClientShow",
+                    j => j.HasOne<Show>().WithMany().HasForeignKey("ShowId"),
+                    j => j.HasOne<Client>().WithMany().HasForeignKey("ClientId"));
+
+
+
             base.OnModelCreating(modelBuilder);
 
         }
