@@ -35,7 +35,7 @@ namespace Infrastructure.Data
                 .HasMany(m => m.Shows)
                 .WithOne()
                 .HasForeignKey(s => s.MovieId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade); //asegura que si una película se elimina, todas las funciones asociadas también se eliminarán.
 
             // Relación entre Client y Show
             modelBuilder.Entity<Client>()
@@ -43,8 +43,8 @@ namespace Infrastructure.Data
                 .WithMany()
                 .UsingEntity<Dictionary<string, object>>( //tabla que mantiene la relacion entre un cliente y distintas finciones mediante ids
                     "ClientShow",
-                    j => j.HasOne<Show>().WithMany().HasForeignKey("ShowId"),
-                    j => j.HasOne<Client>().WithMany().HasForeignKey("ClientId"));
+                    j => j.HasOne<Show>().WithMany().HasForeignKey("ShowId").OnDelete(DeleteBehavior.Cascade),
+                    j => j.HasOne<Client>().WithMany().HasForeignKey("ClientId").OnDelete(DeleteBehavior.Cascade));
 
 
 
