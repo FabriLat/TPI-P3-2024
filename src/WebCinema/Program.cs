@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Data;
 using Microsoft.Data.Sqlite;
+using Application.Interfaces;
+using Infrastructure.Data.Repositories;
+using Application.Servicies;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +18,12 @@ builder.Services.AddSwaggerGen();
 //Inyeccion de contexto
 var connectionString = builder.Configuration.GetConnectionString("CinemaProjectDBConnectionString");
 var connection = new SqliteConnection(connectionString);
+
+//Inyeccion de repositorios
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//Inyeccion de servicios
+builder.Services.AddScoped<IUserService, UserService>();
 
 connection.Open();
 
