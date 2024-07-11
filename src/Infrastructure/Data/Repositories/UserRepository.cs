@@ -1,4 +1,5 @@
-﻿using Application.Models;
+﻿using Application.Interfaces;
+using Application.Models;
 using Domain.Entities;
 using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ using System.Xml.Linq;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationContext _context;
         public UserRepository(ApplicationContext context) 

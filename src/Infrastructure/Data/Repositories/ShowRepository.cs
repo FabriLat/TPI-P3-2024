@@ -1,4 +1,5 @@
-﻿using Application.Models;
+﻿using Application.Interfaces;
+using Application.Models;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class ShowRepository
+    public class ShowRepository : IShowRepository
     {
         private readonly ApplicationContext _context;
         public ShowRepository(ApplicationContext context)
