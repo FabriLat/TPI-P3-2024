@@ -19,9 +19,9 @@ namespace WebCinema.Controllers
         }
 
         [HttpPost("[action]")]
-        public bool SignUp(AddUserDto user) // UserRole: 1 (client)  0 (admin)
+        public void SignUp(AddUserDto user) // UserRole: 1 (client)  0 (admin)
         {
-            return _userService.SignUp(user);
+            _userService.SignUp(user);
         }
 
         [HttpGet("[action]")]
@@ -34,6 +34,12 @@ namespace WebCinema.Controllers
         public bool ChangePassword(string name, [FromQuery]string prevPassword, [FromQuery] string newPassword)
         {
             return _userService.UpdatePassword(name, prevPassword, newPassword);
+        }
+
+        [HttpDelete("[action]")] //Lo podra utilizar solo el admin
+        public void DeleteUser(string name)
+        {
+            _userService.DeleteUser(name);
         }
     }
 }

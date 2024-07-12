@@ -12,9 +12,9 @@ namespace Application.Interfaces
     {
         public List<Client> GetClients();
 
-        public bool SignUp(AddUserDto user);
+        public void SignUp(AddUserDto user);
 
-        public bool DeleteUser(string name);
+        public void DeleteUser(string name);
 
         public bool UpdatePassword(string name, string prevPassword, string newPassword);
     }

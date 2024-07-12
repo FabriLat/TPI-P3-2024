@@ -18,38 +18,25 @@ namespace Application.Servicies
             _userRepository = userRepository; 
         }
 
-        public List<Client> GetClients()
+        public List<Client> GetClients()//esta bien devolver toda la informacion?
         {
             return _userRepository.GetUsers();
         }
 
-        public bool SignUp(AddUserDto user)
+        public void SignUp(AddUserDto user) //validar que no exista ya
         {
-            try
-            {
-                _userRepository.AddUser(user);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+
+            _userRepository.AddUser(user);
+
         }
 
-        public bool DeleteUser(string name)
+        public void DeleteUser(string name) //hacer uso de try catch y manejo de errores
         {
-            try
-            {
-                _userRepository.DeleteUser(name);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            _userRepository.DeleteUser(name);
+
         }
 
-        public bool UpdatePassword(string name, string prevPassword, string newPassword)
+        public bool UpdatePassword(string name, string prevPassword, string newPassword) //que retorne errores/estados, no bool
         {
             var user = _userRepository.GetUserByName(name);
 
@@ -59,7 +46,7 @@ namespace Application.Servicies
                 return true;
             }
             else
-                return false;
+                return false;//not found o contraseña incorrecta
             
         }
     }
