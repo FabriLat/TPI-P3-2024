@@ -15,5 +15,7 @@ namespace Application.Interfaces
         public bool SignUp(AddUserDto user);
 
         public bool DeleteUser(string name);
+
+        public bool UpdatePassword(string name, string prevPassword, string newPassword);
     }
 }

@@ -18,16 +18,22 @@ namespace WebCinema.Controllers
             _userService=userService;
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public bool SignUp(AddUserDto user) // UserRole: 1 (client)  0 (admin)
         {
             return _userService.SignUp(user);
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public List<Client> GetClients()
         {
             return _userService.GetClients();
+        }
+
+        [HttpPut("[action]/{name}")]
+        public bool ChangePassword(string name, [FromQuery]string prevPassword, [FromQuery] string newPassword)
+        {
+            return _userService.UpdatePassword(name, prevPassword, newPassword);
         }
     }
 }

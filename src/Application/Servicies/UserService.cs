@@ -48,5 +48,19 @@ namespace Application.Servicies
                 return false;
             }
         }
+
+        public bool UpdatePassword(string name, string prevPassword, string newPassword)
+        {
+            var user = _userRepository.GetUserByName(name);
+
+            if (user != null && user.Password == prevPassword)
+            {
+                _userRepository.UpdatePassword(name, newPassword);
+                return true;
+            }
+            else
+                return false;
+            
+        }
     }
 }

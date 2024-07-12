@@ -18,5 +18,7 @@ namespace Application.Interfaces
         public void AddUser(AddUserDto user);
 
         public void DeleteUser(string name);
+
+        public bool UpdatePassword(string name,string newPassword);
     }
 }

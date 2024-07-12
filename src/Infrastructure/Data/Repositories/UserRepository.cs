@@ -61,5 +61,14 @@ namespace Infrastructure.Data.Repositories
                 _context.SaveChanges();
             }
         }
+
+        public bool UpdatePassword(string name, string newPassword)
+        {
+            var user = _context.Users.FirstOrDefault(user => user.UserName.ToLower() == name.ToLower());
+
+                user.Password = newPassword;
+                _context.SaveChanges();
+                return true;
+        }
     }
 }
