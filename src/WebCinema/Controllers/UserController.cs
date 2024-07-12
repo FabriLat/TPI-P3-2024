@@ -19,7 +19,7 @@ namespace WebCinema.Controllers
         }
 
         [HttpPost]
-        public bool SignUp(AddUserDto user)
+        public bool SignUp(AddUserDto user) // UserRole: 1 (client)  0 (admin)
         {
             return _userService.SignUp(user);
         }

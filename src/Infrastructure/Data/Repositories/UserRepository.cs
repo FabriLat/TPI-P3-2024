@@ -47,6 +47,7 @@ namespace Infrastructure.Data.Repositories
             
 
             _context.Users.Add(newUser);
+            _context.SaveChanges();
         }
 
         public void DeleteUser( string name )
@@ -55,7 +56,10 @@ namespace Infrastructure.Data.Repositories
                   .FirstOrDefault(user => user.UserName.ToLower() == name.ToLower());
 
             if (user != null)
+            { 
                 _context.Users.Remove(user);
+                _context.SaveChanges();
+            }
         }
     }
 }
