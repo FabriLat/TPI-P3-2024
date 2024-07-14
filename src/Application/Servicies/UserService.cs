@@ -18,25 +18,34 @@ namespace Application.Servicies
             _userRepository = userRepository; 
         }
 
-        public List<Client> GetClients()//esta bien devolver toda la informacion?
+        public List<ShowUserDto> GetUsers()
         {
             return _userRepository.GetUsers();
         }
 
-        public void SignUp(AddUserDto user) //validar que no exista ya
+        public bool SignUp(AddUserDto user) //validar que no exista ya
         {
-
-            _userRepository.AddUser(user);
-
+            if (_userRepository.GetUserByName(user.UserName) == null) 
+            {
+                _userRepository.AddUser(user);
+                return true;
+            }      
+            
+            return false;
         }
 
-        public void DeleteUser(string name) //hacer uso de try catch y manejo de errores
+        public bool DeleteUser(string name) //hacer uso de try catch y manejo de errores
         {
-            _userRepository.DeleteUser(name);
+            if (_userRepository.GetUserByName(name) != null) 
+            {
+                _userRepository.DeleteUser(name);
+                return true ;
+            }
 
+            return false;
         }
 
-        public bool UpdatePassword(string name, string prevPassword, string newPassword) //que retorne errores/estados, no bool
+        public bool UpdatePassword(string name, string prevPassword, string newPassword) 
         {
             var user = _userRepository.GetUserByName(name);
 

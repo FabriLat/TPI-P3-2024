@@ -10,11 +10,11 @@ namespace Application.Interfaces
 {
     public interface IUserService
     {
-        public List<Client> GetClients();
+        public List<ShowUserDto> GetUsers();
 
-        public void SignUp(AddUserDto user);
+        public bool SignUp(AddUserDto user);
 
-        public void DeleteUser(string name);
+        public bool DeleteUser(string name);
 
         public bool UpdatePassword(string name, string prevPassword, string newPassword);
     }

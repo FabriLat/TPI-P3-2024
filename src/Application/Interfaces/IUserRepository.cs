@@ -13,7 +13,7 @@ namespace Application.Interfaces
     {
         public User? GetUserByName(string name);
 
-        public List<Client> GetUsers();
+        public List<ShowUserDto> GetUsers();
 
         public void AddUser(AddUserDto user);
 

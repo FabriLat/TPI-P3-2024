@@ -24,15 +24,20 @@ namespace Infrastructure.Data.Repositories
         {
             return _context.Users.OfType<Client>()
                   .Include(c => c.ShowsBuyed)
-                  .FirstOrDefault(user => user.UserName.ToLower() == name.ToLower());
+                  .FirstOrDefault(user => user.UserName == name);
         }
 
-        public List<Client> GetUsers()
+        public List<ShowUserDto> GetUsers()
         {
-            return _context.Users.OfType<Client>()
-                  .Include(c => c.ShowsBuyed)
+            return _context.Users
+                  .Select(user => new ShowUserDto
+                  {
+                      UserName = user.UserName,
+                      Email = user.Email,
+                      UserRole = user.UserRole == 0? "Admin" : "Client"
+                  })
                   .ToList();
-                  
+
         }
 
         public void AddUser(AddUserDto user)
@@ -53,7 +58,7 @@ namespace Infrastructure.Data.Repositories
         public void DeleteUser( string name )
         {
             var user = _context.Users
-                  .FirstOrDefault(user => user.UserName.ToLower() == name.ToLower());
+                  .FirstOrDefault(user => user.UserName == name);
 
             if (user != null)
             { 
@@ -64,7 +69,7 @@ namespace Infrastructure.Data.Repositories
 
         public bool UpdatePassword(string name, string newPassword)
         {
-            var user = _context.Users.FirstOrDefault(user => user.UserName.ToLower() == name.ToLower());
+            var user = _context.Users.FirstOrDefault(user => user.UserName == name);
 
                 user.Password = newPassword;
                 _context.SaveChanges();

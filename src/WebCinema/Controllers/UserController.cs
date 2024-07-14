@@ -19,27 +19,36 @@ namespace WebCinema.Controllers
         }
 
         [HttpPost("[action]")]
-        public void SignUp(AddUserDto user) // UserRole: 1 (client)  0 (admin)
+        public IActionResult SignUp(AddUserDto user) // UserRole: 1 (client)  0 (admin)
         {
-            _userService.SignUp(user);
+            if(_userService.SignUp(user))
+                return Ok("Usuario Registrado!!");
+
+            return BadRequest("Ese nombre de usuario ya se encuentra registrado");
         }
 
         [HttpGet("[action]")]
-        public List<Client> GetClients()
+        public List<ShowUserDto> GetClients()
         {
-            return _userService.GetClients();
+            return _userService.GetUsers();
         }
 
         [HttpPut("[action]/{name}")]
-        public bool ChangePassword(string name, [FromQuery]string prevPassword, [FromQuery] string newPassword)
+        public IActionResult ChangePassword(string name, [FromQuery]string prevPassword, [FromQuery] string newPassword)
         {
-            return _userService.UpdatePassword(name, prevPassword, newPassword);
+            if (_userService.UpdatePassword(name, prevPassword, newPassword))
+                return Ok("La contraseña se modifico correctamente");
+
+            return BadRequest("El usuario no existe o la contraseña es incorrecta");
         }
 
         [HttpDelete("[action]")] //Lo podra utilizar solo el admin
-        public void DeleteUser(string name)
+        public IActionResult DeleteUser(string name)
         {
-            _userService.DeleteUser(name);
+            if (_userService.DeleteUser(name))
+                return Ok($"Usuario [{name}] eliminado");
+
+            return NotFound("El ususario ingresado no existe");
         }
     }
 }
