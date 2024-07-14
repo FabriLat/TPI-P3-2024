@@ -22,9 +22,18 @@ namespace Infrastructure.Data.Repositories
 
         public User? GetUserByName(string name)
         {
-            return _context.Users.OfType<Client>()
-                  .Include(c => c.ShowsBuyed)
-                  .FirstOrDefault(user => user.UserName == name);
+            var user = _context.Users.FirstOrDefault(user => user.UserName == name);
+
+            if (user != null && user.UserRole == UserType.Client)
+            {
+                //si es un cliente se le cargan las funciones compradas
+                user = _context.Users.OfType<Client>()
+                                   .Include(c => c.ShowsBuyed)
+                                   .FirstOrDefault(user => user.UserName == name);
+                return user;
+            }
+
+            return user;
         }
 
         public List<ShowUserDto> GetUsers()

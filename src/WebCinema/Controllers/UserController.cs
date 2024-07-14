@@ -19,7 +19,7 @@ namespace WebCinema.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult SignUp(AddUserDto user) // UserRole: 1 (client)  0 (admin)
+        public IActionResult SignUp(AddUserDto user) // UserRole: 1 (client)  0 (admin) (solo los admin podran agregar admins)
         {
             if(_userService.SignUp(user))
                 return Ok("Usuario Registrado!!");
