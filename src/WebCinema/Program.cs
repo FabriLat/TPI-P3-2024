@@ -4,6 +4,7 @@ using Microsoft.Data.Sqlite;
 using Application.Interfaces;
 using Infrastructure.Data.Repositories;
 using Application.Servicies;
+using Infrastructure.Servicies;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //Inyeccion de servicios
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>(); 
 
 connection.Open();
 

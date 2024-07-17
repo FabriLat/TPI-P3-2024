@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Application.Models;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,8 @@ namespace Application.Interfaces
 {
     public interface IAuthenticationService
     {
+        User? ValidateUser(AuthenticationRequest authenticationRequest);
+
+        string Autenticate( User user);
     }
 }
