@@ -15,6 +15,8 @@ namespace Application.Interfaces
 
         public void AddMovie(Movie movie);
 
+        public bool UpdateMovie(string title, string newTitle);
+
         public void DeleteMovie(string title);
     }
 }
