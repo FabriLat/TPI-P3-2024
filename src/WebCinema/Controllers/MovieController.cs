@@ -26,12 +26,17 @@ namespace WebCinema.Controllers
         }
 
 
-
-
         [HttpGet("[action]")]
         public List<Movie> GetAll()
         {
             return _movieService.GetAllMovies();
+        }
+
+
+        [HttpGet("[action]")]
+        public Movie GetByTitle(string title)
+        {
+            return _movieService.GetMovieByTitle(title);
         }
     }
 }

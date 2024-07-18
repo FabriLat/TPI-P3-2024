@@ -44,9 +44,9 @@ namespace Application.Servicies
             return _movieRepository.GetAll();
         }
 
-        public Movie GetMovieByTitle(string name)
+        public Movie GetMovieByTitle(string title)
         {
-            throw new NotImplementedException();
+            return _movieRepository.GetMovieByTitle(title);
         }
 
 
