@@ -34,9 +34,10 @@ namespace Application.Servicies
             return true;
         }
 
-        public bool DeleteMovie(string name)
+        public bool DeleteMovie(string title)
         {
-            throw new NotImplementedException();
+            _movieRepository.DeleteMovie(title);
+            return true;
         }
 
         public List<Movie> GetAllMovies()

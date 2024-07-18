@@ -47,6 +47,13 @@ namespace WebCinema.Controllers
             return _movieService.GetMovieByTitle(title);
         }
 
+        [HttpDelete("[action]")]
+        public IActionResult DeleteMovie([FromRoute]string title)
+        {
+            _movieService.DeleteMovie(title);
+            return Ok();
+        }
+
 
     }
 }
