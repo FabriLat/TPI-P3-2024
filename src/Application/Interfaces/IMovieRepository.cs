@@ -11,9 +11,9 @@ namespace Application.Interfaces
     {
         public List<Movie> GetAll();
 
-        public Movie? GetMovieByName(string title);
+        public Movie? GetMovieByTitle(string title);
 
-        public void AddMovie(string title);
+        public void AddMovie(Movie movie);
 
         public void DeleteMovie(string title);
     }

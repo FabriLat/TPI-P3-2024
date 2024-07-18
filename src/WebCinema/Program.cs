@@ -21,9 +21,11 @@ var connection = new SqliteConnection(connectionString);
 
 //Inyeccion de repositorios
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 
 //Inyeccion de servicios
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 connection.Open();
 
