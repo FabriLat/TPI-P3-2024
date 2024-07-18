@@ -22,15 +22,13 @@ namespace Infrastructure.Data.Repositories
             return _context.Movies.Include(s => s.Shows).ToList(); //trae las peliculas con las funciones cargadas en la lista
         }
 
-        public Movie? GetMovieByName(string title) 
+        public Movie? GetMovieByTitle(string title) 
         { 
             return _context.Movies.Include(s => s.Shows).FirstOrDefault(s => s.Title.ToLower() == title.ToLower());
         }
 
-        public void AddMovie(string title)
+        public void AddMovie(Movie movie)
         {
-            var movie = new Movie(title);
-
             _context.Movies.Add(movie);
             _context.SaveChanges();
         }
