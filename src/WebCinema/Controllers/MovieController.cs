@@ -19,13 +19,11 @@ namespace WebCinema.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult CreateMovie(string title) // UserRole: 1 (client)  0 (admin) (solo los admin podran agregar admins)
+        public IActionResult CreateMovie([FromBody]string title) // UserRole: 1 (client)  0 (admin) (solo los admin podran agregar admins)
         {
             _movieService.CreateMovie(title);
              return Ok();
         }
-
-
 
 
         [HttpGet("[action]")]
@@ -33,6 +31,23 @@ namespace WebCinema.Controllers
         {
             return _movieService.GetAllMovies();
         }
+
+
+        [HttpPut("[action]/{title}")]
+        public IActionResult UpdateMovie([FromRoute]string title,[FromBody]string newTitle)
+        {
+            _movieService.UpdateMovie(title, newTitle);
+            return Ok();
+        }
+
+
+        [HttpGet("[action]/{title}")]
+        public Movie GetByTitle([FromRoute]string title)
+        {
+            return _movieService.GetMovieByTitle(title);
+        }
+
+
     }
 }
 

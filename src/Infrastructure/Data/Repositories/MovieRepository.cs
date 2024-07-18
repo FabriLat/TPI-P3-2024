@@ -24,7 +24,8 @@ namespace Infrastructure.Data.Repositories
 
         public Movie? GetMovieByTitle(string title) 
         { 
-            return _context.Movies.Include(s => s.Shows).FirstOrDefault(s => s.Title.ToLower() == title.ToLower());
+            var movie =  _context.Movies.FirstOrDefault(s => s.Title.ToLower() == title.ToLower());
+            return movie;
         }
 
         public void AddMovie(Movie movie)
@@ -47,5 +48,16 @@ namespace Infrastructure.Data.Repositories
                 throw new Exception("movie not found");
             }
         }
+
+        public bool UpdateMovie(string title, string newTitle)
+        {
+            var movieToUpdate = _context.Movies.Include(s => s.Shows).FirstOrDefault(s => s.Title.ToLower() == title.ToLower());
+            movieToUpdate.Title = newTitle;
+            _context.SaveChanges();
+            return true;
+
+        }
+
+
     }
 }

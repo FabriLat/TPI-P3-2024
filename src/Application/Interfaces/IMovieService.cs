@@ -12,13 +12,14 @@ namespace Application.Interfaces
     {
         public bool CreateMovie(string title);
 
-        public bool UpdateMovie(string title);
+        public bool UpdateMovie(string title, string newTitle);
 
         public bool DeleteMovie(string title);
 
         public Movie GetMovieByTitle(string title);
 
         public List<Movie> GetAllMovies();
+
 
     }
 }

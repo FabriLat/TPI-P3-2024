@@ -25,13 +25,13 @@ namespace Application.Servicies
 
             var movieToAdd = new Movie(title);
             _movieRepository.AddMovie(movieToAdd);
-
             return true;
         }
 
-        public bool UpdateMovie(string name)
+        public bool UpdateMovie(string title, string newTitle)
         {
-            throw new NotImplementedException();
+            _movieRepository.UpdateMovie(title, newTitle);
+            return true;
         }
 
         public bool DeleteMovie(string name)
@@ -44,9 +44,9 @@ namespace Application.Servicies
             return _movieRepository.GetAll();
         }
 
-        public Movie GetMovieByTitle(string name)
+        public Movie? GetMovieByTitle(string title)
         {
-            throw new NotImplementedException();
+            return _movieRepository.GetMovieByTitle(title);
         }
 
 
