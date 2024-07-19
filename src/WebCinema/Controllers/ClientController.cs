@@ -19,15 +19,16 @@ namespace WebCinema.Controllers
 
 
         [HttpPost("[action]/{showId}")]
-        public Show BuyShow(int showId, int clientId)
+        public IActionResult BuyShow(int showId, int clientId)
         {
-            return _clientService.BuyShow(showId, clientId);
+            return Ok(_clientService.BuyShow(showId, clientId));
+                
         }
 
         [HttpGet("[action]/{clientId}")]
-        public List<Show> ViewPurchases(int clientId)
+        public IActionResult ViewPurchases(int clientId)
         {
-            return _clientService.ViewPurchases(clientId);
+            return Ok(_clientService.ViewPurchases(clientId));
         }
 
     }
