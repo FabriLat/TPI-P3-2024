@@ -3,7 +3,7 @@ using Infrastructure.Data;
 using Microsoft.Data.Sqlite;
 using Application.Interfaces;
 using Infrastructure.Data.Repositories;
-using Application.Servicies;
+using Application.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
