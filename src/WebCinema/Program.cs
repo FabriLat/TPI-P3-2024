@@ -5,6 +5,9 @@ using Application.Interfaces;
 using Infrastructure.Data.Repositories;
 using Application.Servicies;
 using Infrastructure.Servicies;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +17,28 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(setupAction =>
+{
+setupAction.AddSecurityDefinition("ApiBearerAuth", new OpenApiSecurityScheme() //Esto va a permitir usar swagger con el token.
+{
+    Type = SecuritySchemeType.Http,
+    Scheme = "Bearer",
+    Description = "Acá pegar el token generado al loguearse."
+});
+
+setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "ApiBearerAuth" } //Tiene que coincidir con el id seteado arriba en la definición
+                }, new List<string>() }
+    });
+});
 
 //Inyeccion de contexto
 var connectionString = builder.Configuration.GetConnectionString("CinemaProjectDBConnectionString");
@@ -38,6 +62,21 @@ using (var command = connection.CreateCommand())
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlite(connection));
 
+builder.Services.AddAuthentication("Bearer") 
+    .AddJwtBearer(options => //Acá definimos la configuración de la autenticación. le decimos qué cosas queremos comprobar. La fecha de expiración se valida por defecto.
+    {
+        options.TokenValidationParameters = new()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Authentication:Issuer"],
+            ValidAudience = builder.Configuration["Authentication:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
+        };
+    }
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,6 +87,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

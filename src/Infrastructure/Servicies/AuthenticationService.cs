@@ -70,7 +70,7 @@ namespace Infrastructure.Servicies
             var tokenToReturn = new JwtSecurityTokenHandler() //Pasamos el token a string
                 .WriteToken(jwtSecurityToken);
 
-            return tokenToReturn.ToString();
+            return tokenToReturn;
         }
     }
 }

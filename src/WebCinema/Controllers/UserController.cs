@@ -2,6 +2,7 @@
 using Application.Models;
 using Domain.Entities;
 using Infrastructure.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +29,8 @@ namespace WebCinema.Controllers
         }
 
         [HttpGet("[action]")]
-        public List<ShowUserDto> GetClients()
+        [Authorize]
+        public List<ShowUserDto> GetUsers()
         {
             return _userService.GetUsers();
         }
