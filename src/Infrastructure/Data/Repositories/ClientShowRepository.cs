@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class ClientRepository : IClientRepository
+    public class ClientShowRepository : IClientShowRepository
     {
         private readonly ApplicationContext _context;
 
-        public ClientRepository(ApplicationContext context)
+        public ClientShowRepository(ApplicationContext context)
         {
             _context = context;
         }
@@ -30,7 +31,7 @@ namespace Infrastructure.Data.Repositories
 
             // busca el cliente q quiere comprar en base al id ingresado
 
-            var client = _context.Users.OfType<Client>().FirstOrDefault(c => c.Id == clientId);
+            var client = _context.Users.OfType<Client>().Include(c => c.BoughtShows).FirstOrDefault(c => c.Id == clientId);
         
 
             if(client == null)
@@ -57,11 +58,11 @@ namespace Infrastructure.Data.Repositories
 
         public List<Show> ViewPurchases(int clientId)
         {
-            var client = _context.Users.OfType<Client>().FirstOrDefault(c => c.Id == clientId);
+            var client = _context.Users.OfType<Client>().Include(c => c.BoughtShows).FirstOrDefault(c => c.Id == clientId);
 
             if (client == null)
             {
-                throw new ArgumentException("Cliente no encontrado");
+                throw new Exception("Cliente no encontrado");
             }
 
             return client.BoughtShows; // devuelvo lista

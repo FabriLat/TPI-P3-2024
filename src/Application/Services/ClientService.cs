@@ -10,22 +10,22 @@ namespace Application.Services
 {
     public class ClientService : IClientService
     {
-        private readonly IClientRepository _clientRepository;
+        private readonly IClientShowRepository _clientShowRepository;
 
-        public ClientService(IClientRepository clientRepository)
+        public ClientService(IClientShowRepository clientShowRepository)
         {
-            _clientRepository = clientRepository;
+            _clientShowRepository = clientShowRepository;
         }
 
 
         public Show BuyShow(int showId, int clientId)
         {
-            return _clientRepository.BuyShow(showId, clientId);
+            return _clientShowRepository.BuyShow(showId, clientId);
         }
 
         public List<Show> ViewPurchases(int clientId)
         {
-            return _clientRepository.ViewPurchases(clientId);
+            return _clientShowRepository.ViewPurchases(clientId);
         }
 
     }

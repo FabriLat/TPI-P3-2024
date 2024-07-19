@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface IClientRepository
+    public interface IClientShowRepository
     {
         public Show BuyShow(int showId, int clientId);
         public List<Show> ViewPurchases(int clientId);
