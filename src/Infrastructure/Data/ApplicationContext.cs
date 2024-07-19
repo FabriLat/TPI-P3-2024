@@ -39,7 +39,7 @@ namespace Infrastructure.Data
 
             // Relación entre Client y Show
             modelBuilder.Entity<Client>()
-                .HasMany(c => c.ShowsBuyed)
+                .HasMany(c => c.BoughtShows)
                 .WithMany()
                 .UsingEntity<Dictionary<string, object>>( //tabla que mantiene la relacion entre un cliente y distintas finciones mediante ids
                     "ClientShow",

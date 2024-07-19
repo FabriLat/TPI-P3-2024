@@ -46,6 +46,8 @@ var connection = new SqliteConnection(connectionString);
 
 //Inyeccion de repositorios
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IClientShowRepository, ClientShowRepository>();
 
 //Inyeccion de servicios
 builder.Services.AddScoped<IUserService, UserService>();

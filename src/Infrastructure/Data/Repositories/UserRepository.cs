@@ -28,7 +28,7 @@ namespace Infrastructure.Data.Repositories
             {
                 //si es un cliente se le cargan las funciones compradas
                 user = _context.Users.OfType<Client>()
-                                   .Include(c => c.ShowsBuyed)
+                                   .Include(c => c.BoughtShows)
                                    .FirstOrDefault(user => user.UserName == name);
                 return user;
             }
