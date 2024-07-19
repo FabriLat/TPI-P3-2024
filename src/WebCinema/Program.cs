@@ -3,12 +3,11 @@ using Infrastructure.Data;
 using Microsoft.Data.Sqlite;
 using Application.Interfaces;
 using Infrastructure.Data.Repositories;
-using Application.Servicies;
+using Application.Services;
 using Infrastructure.Servicies;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
-using Application.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
