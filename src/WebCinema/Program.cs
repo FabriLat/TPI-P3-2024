@@ -80,11 +80,13 @@ builder.Services.AddAuthentication("Bearer")
     }
 );
 
-builder.Services.AddAuthorization(options => //politica para restringir autorizacion a solo admins
+builder.Services.AddAuthorization(options => //valida que el usuario logueado sea admin
 {
     options.AddPolicy("AdminOnly", policy =>
-        policy.RequireClaim("role", "Admin")); 
+        policy.RequireAssertion(context =>
+            context.User.HasClaim(c => c.Type.Contains("role") && c.Value == "Admin")));
 });
+
 
 
 var app = builder.Build();

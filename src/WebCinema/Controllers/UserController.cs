@@ -26,10 +26,10 @@ namespace WebCinema.Controllers
         {
             if (user.UserRole == UserType.Admin) //validacion para que solo admins agreguen admins
             {
-                
-                var userRole = User.Claims.FirstOrDefault(c => c.Type == "role")?.Value;
 
-                
+                var userRole = User.Claims.FirstOrDefault(c => c.Type.Contains("role"))?.Value;
+
+
                 if (userRole != "Admin")
                 {
                     return Unauthorized("No tienes permiso para registrar administradores.");
