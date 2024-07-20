@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Models;
 using Domain.Entities;
+using Application.Services;
 using Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,11 @@ namespace WebCinema.Controllers
         [HttpPost("[action]")]
         public IActionResult CreateMovie([FromBody]string title) // UserRole: 1 (client)  0 (admin) (solo los admin podran agregar admins)
         {
-            _movieService.CreateMovie(title);
+            var response = _movieService.CreateMovie(title);
+            if (response == false)
+            {
+                return BadRequest();
+            }
              return Ok();
         }
 
@@ -36,22 +41,42 @@ namespace WebCinema.Controllers
         [HttpPut("[action]/{title}")]
         public IActionResult UpdateMovie([FromRoute]string title,[FromBody]string newTitle)
         {
-            _movieService.UpdateMovie(title, newTitle);
-            return Ok();
+            if (_movieService.UpdateMovie(title, newTitle) == true)
+            {
+                return Ok();
+            }else
+            {
+                return BadRequest();
+            }
         }
-
 
         [HttpGet("[action]/{title}")]
         public Movie GetByTitle([FromRoute]string title)
         {
             return _movieService.GetMovieByTitle(title);
         }
-
-        [HttpDelete("[action]")]
+           
+        [HttpDelete("[action]/{title}")]
         public IActionResult DeleteMovie([FromRoute]string title)
         {
-            _movieService.DeleteMovie(title);
-            return Ok();
+            try
+            {
+                var response = _movieService.DeleteMovie(title);
+                if (response)
+                {
+                    return Ok();
+                } else
+                {
+                    return StatusCode(404);
+                }
+                
+            }
+            catch (Exception e)
+            {
+                return StatusCode(404, $"Error: {e}");
+            }
+           
+            
         }
 
 
