@@ -71,6 +71,7 @@ builder.Services.AddAuthentication("Bearer")
         {
             ValidateIssuer = true,
             ValidateAudience = true,
+            ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Authentication:Issuer"],
             ValidAudience = builder.Configuration["Authentication:Audience"],
@@ -78,6 +79,13 @@ builder.Services.AddAuthentication("Bearer")
         };
     }
 );
+
+builder.Services.AddAuthorization(options => //politica para restringir autorizacion a solo admins
+{
+    options.AddPolicy("AdminOnly", policy =>
+        policy.RequireClaim("role", "Admin")); 
+});
+
 
 var app = builder.Build();
 
