@@ -52,6 +52,7 @@ builder.Services.AddScoped<IClientShowRepository, ClientShowRepository>();
 //Inyeccion de servicios
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>(); 
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 connection.Open();
 

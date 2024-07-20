@@ -34,7 +34,7 @@ namespace Infrastructure.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void DeleteMovie(string title) 
+        public bool DeleteMovie(string title) 
         {
             var movieToDelete = _context.Movies.FirstOrDefault(s => s.Title.ToLower() == title.ToLower());
 
@@ -42,19 +42,27 @@ namespace Infrastructure.Data.Repositories
             {
                 _context.Movies.Remove(movieToDelete);
                 _context.SaveChanges();
+                return true;
             }
             else
             {
-                throw new Exception("movie not found");
+                return false;
             }
-        }
+        }   
 
         public bool UpdateMovie(string title, string newTitle)
         {
             var movieToUpdate = _context.Movies.Include(s => s.Shows).FirstOrDefault(s => s.Title.ToLower() == title.ToLower());
-            movieToUpdate.Title = newTitle;
-            _context.SaveChanges();
-            return true;
+            if (movieToUpdate != null)
+            {
+                movieToUpdate.Title = newTitle;
+                _context.SaveChanges();
+                return true;
+            }else
+            {
+                return false;
+            }
+           
 
         }
 
