@@ -53,7 +53,7 @@ namespace WebCinema.Controllers
         [Authorize]
         public IActionResult ChangePassword([FromQuery]string prevPassword, [FromQuery] string newPassword)
         {
-            var name = User.Claims.FirstOrDefault(c => c.Type == "given_name")?.Value;
+            var name = User.Claims.FirstOrDefault(c => c.Type.Contains("given_name"))?.Value;
 
             if (_userService.UpdatePassword(name, prevPassword, newPassword))
                 return Ok("La contraseña se modifico correctamente");
