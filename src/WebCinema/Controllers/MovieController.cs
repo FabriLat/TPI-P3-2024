@@ -5,11 +5,13 @@ using Application.Services;
 using Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebCinema.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "AdminOnly")]
     public class MovieController : ControllerBase
     {
         private readonly IMovieService _movieService;
