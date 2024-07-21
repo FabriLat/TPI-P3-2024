@@ -51,6 +51,7 @@ builder.Services.AddScoped<IClientShowRepository, ClientShowRepository>();
 builder.Services.AddScoped<IShowRepository, ShowRepository>();
 
 //Inyeccion de servicios
+builder.Services.AddScoped<IClientShowService, ClientShowService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>(); 
 builder.Services.AddScoped<IMovieService, MovieService>();

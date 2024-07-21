@@ -18,41 +18,22 @@ namespace Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public Show BuyShow(int showId, int clientId)
+        public bool BuyShow(int showId, int clientId)
         {
             // busca la funcion a comprar en base al id ingresado 
             var show = _context.Shows.FirstOrDefault(s => s.Id == showId);
 
-            
-            if (show == null)
-            {
-                throw new Exception("Función no encontrada");
-            }
-
             // busca el cliente q quiere comprar en base al id ingresado
 
             var client = _context.Users.OfType<Client>().Include(c => c.BoughtShows).FirstOrDefault(c => c.Id == clientId);
-        
 
-            if(client == null)
+            if (client != null && show != null)
             {
-                throw new Exception("Cliente no encontrado");
-            }
-
-            // si ya compró funcion, tira error
-            if (client.BoughtShows.Contains(show))
-            {
-                throw new Exception("La función ya ha sido comprada");
-            }
-            else
-            {
-                // añado funcion a la lista de compras
                 client.BoughtShows.Add(show);
                 _context.SaveChanges();
+                return true;
             }
-
-            
-            return show;
+            return false;
 
         }
 

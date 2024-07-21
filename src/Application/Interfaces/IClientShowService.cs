@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface IClientService
+    public interface IClientShowService
     {
-        public Show BuyShow(int showId, int clientId);
+        public bool BuyShow(int showId, int clientId);
         public List<Show> ViewPurchases(int clientId);
     }
 }

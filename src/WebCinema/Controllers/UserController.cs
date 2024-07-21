@@ -24,6 +24,7 @@ namespace WebCinema.Controllers
         [HttpPost("[action]")]
         public IActionResult SignUp(AddUserDto user) // UserRole: 1 (client)  0 (admin) (solo los admin podran agregar admins)
         {
+           
             if (user.UserRole == UserType.Admin) //validacion para que solo admins agreguen admins
             {
 
@@ -35,6 +36,7 @@ namespace WebCinema.Controllers
                     return Unauthorized("No tienes permiso para registrar administradores.");
                 }
             }
+
 
             if (_userService.SignUp(user))
                 return Ok("Usuario Registrado!!");

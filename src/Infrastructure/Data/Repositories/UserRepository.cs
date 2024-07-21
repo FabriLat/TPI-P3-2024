@@ -41,6 +41,7 @@ namespace Infrastructure.Data.Repositories
             return _context.Users
                   .Select(user => new ShowUserDto
                   {
+                      Id = user.Id,
                       UserName = user.UserName,
                       Email = user.Email,
                       UserRole = user.UserRole == 0? "Admin" : "Client"

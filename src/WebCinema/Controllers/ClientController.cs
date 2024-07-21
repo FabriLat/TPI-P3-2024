@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace WebCinema.Controllers
 {
@@ -10,25 +11,31 @@ namespace WebCinema.Controllers
     public class ClientController : ControllerBase
     {
 
-        private readonly IClientService _clientService;
+        private readonly IClientShowService _clientShowService;
 
-        public ClientController(IClientService clientService)
+        public ClientController(IClientShowService clientShowService)
         {
-            _clientService = clientService;
+            _clientShowService = clientShowService;
         }
 
 
         [HttpPost("[action]/{showId}")]
-        public IActionResult BuyShow(int showId, int clientId)
+        public IActionResult BuyShow(int showId)
         {
-            return Ok(_clientService.BuyShow(showId, clientId));
+            var clientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (_clientShowService.BuyShow(showId, int.Parse(clientId)))
+            {
+                return Ok();
+            }
+            return NotFound();
+            
                 
         }
 
         [HttpGet("[action]/{clientId}")]
         public IActionResult ViewPurchases(int clientId)
         {
-            return Ok(_clientService.ViewPurchases(clientId));
+            return Ok(_clientShowService.ViewPurchases(clientId));
         }
 
     }

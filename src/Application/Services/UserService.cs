@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Models;
 using Domain.Entities;
+using Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Application.Services
 
         public bool SignUp(AddUserDto user) //validar que no exista ya
         {
-            if (_userRepository.GetUserByName(user.UserName) == null) 
+            if (_userRepository.GetUserByName(user.UserName) == null) // Falta validar que user.UserRole sea  >= 0 y <= 1 
             {
                 _userRepository.AddUser(user);
                 return true;
