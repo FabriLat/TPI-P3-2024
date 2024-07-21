@@ -18,7 +18,7 @@ namespace Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public bool AddShow(TimeSpan runTime, TimeSpan startTime, int movieId) 
+        public bool AddShow(string runTime, string startTime, int movieId) 
         {
             var show = new Show(runTime,startTime);
 
@@ -39,7 +39,7 @@ namespace Infrastructure.Data.Repositories
             return false;
         }
 
-        public bool DeleteShow(int movieId, TimeSpan startTime) 
+        public bool DeleteShow(int movieId, string startTime) 
         {
             var showToDelete = _context.Shows.FirstOrDefault(s => (s.MovieId == movieId && s.StartTime == startTime));
 

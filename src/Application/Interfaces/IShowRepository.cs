@@ -10,9 +10,9 @@ namespace Application.Interfaces
 {
     public interface IShowRepository
     {
-        public bool AddShow(TimeSpan runTime, TimeSpan startTime, int movieId);
+        public bool AddShow(string runTime, string startTime, int movieId);
 
-        public bool DeleteShow(int movieId, TimeSpan startTime);
+        public bool DeleteShow(int movieId, string startTime);
 
     }
 }

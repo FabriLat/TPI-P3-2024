@@ -14,22 +14,19 @@ namespace Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int MovieId { get; set; }  // Foreign Key
-        public TimeSpan RunTime { get; set; }
+        public string RunTime { get; set; }
 
-        public TimeSpan StartTime { get; set; }
-
-        public TimeSpan EndTime { get; set; }
+        public string StartTime { get; set; }
 
         public int SeatsAvailable { get; set; }
 
 
         public Show() { }
 
-        public Show(TimeSpan runTime, TimeSpan startTime) 
+        public Show(string runTime, string startTime) 
         {
             RunTime = runTime;
             StartTime = startTime;
-            EndTime = StartTime.Add(RunTime);
             SeatsAvailable = 3; //numero chico por ahora para testeo. Una vez controlado que funciona modificar a 100
         }
     }

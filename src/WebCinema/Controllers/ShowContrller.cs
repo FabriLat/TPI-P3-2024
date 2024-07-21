@@ -19,7 +19,7 @@ namespace WebCinema.Controllers
 
         [HttpPost("[action]")]
         [Authorize(Policy = "AdminOnly")]
-        public IActionResult AddShow([FromQuery]TimeSpan runTime, [FromQuery] TimeSpan startTime, [FromQuery] int movieId)
+        public IActionResult AddShow([FromQuery]string runTime, [FromQuery] string startTime, [FromQuery] int movieId)
         {
             if (_showService.AddShow(runTime, startTime, movieId))
                 return Ok("Se agrego la funcion con exito!!");
@@ -29,7 +29,7 @@ namespace WebCinema.Controllers
 
         [HttpDelete("[action]")]
         [Authorize(Policy = "AdminOnly")]
-        public IActionResult DeleteShow(int movieId, TimeSpan startTime)
+        public IActionResult DeleteShow(int movieId, string startTime)
         {
             if (_showService.DeleteShow(movieId, startTime))
                 return Ok($"La funcion de las {startTime} se elimino correctamente!!");

@@ -17,13 +17,13 @@ namespace Application.Services
         }
 
 
-        public bool AddShow(TimeSpan runTime, TimeSpan startTime, int movieId)
+        public bool AddShow(string runTime, string startTime, int movieId)
         {
             return _showRepository.AddShow(runTime, startTime, movieId);
         }
 
 
-        public bool DeleteShow(int movieId, TimeSpan startTime)
+        public bool DeleteShow(int movieId, string startTime)
         {
             return _showRepository.DeleteShow(movieId, startTime);
         }
