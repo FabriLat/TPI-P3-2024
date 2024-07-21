@@ -18,17 +18,28 @@ namespace Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public void AddShow(TimeSpan runTime, TimeSpan startTime, int movieId) //movieId se enviara desde el servicio obteniendo la movie con un getMovieByName
+        public bool AddShow(TimeSpan runTime, TimeSpan startTime, int movieId) 
         {
             var show = new Show(runTime,startTime);
 
             show.MovieId = movieId;
 
-            _context.Shows.Add(show);
-            _context.SaveChanges();
+            var movie = _context.Movies.Include(m => m.Shows).FirstOrDefault(m => m.Id == movieId);
+
+
+            if (movie != null && !movie.Shows.Contains(show)) //comprueba que exista la pelicula indicada para agregarla y que la funcion no exista ya 
+            {
+              
+                _context.Shows.Add(show);
+                _context.SaveChanges();
+
+                return true;
+            }
+            
+            return false;
         }
 
-        public void DeleteShow(int movieId, TimeSpan startTime) //movieId se enviara desde el servicio obteniendo la movie con un getMovieByName (el usuario proporcionara el nombre de la movie y el horario a eliminar)
+        public bool DeleteShow(int movieId, TimeSpan startTime) 
         {
             var showToDelete = _context.Shows.FirstOrDefault(s => (s.MovieId == movieId && s.StartTime == startTime));
 
@@ -36,28 +47,12 @@ namespace Infrastructure.Data.Repositories
             {
                 _context.Shows.Remove(showToDelete);
                 _context.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("Show not found");
-            }
-        }
 
-        public void ModifyShows(int movieId, TimeSpan startTime, UpdateShowDto showUpdated) //solo se podran modificar los horarios 
-        {
-            var showToUpdate = _context.Shows.FirstOrDefault(s => (s.MovieId == movieId && s.StartTime == startTime));
+                return true;
+            }
 
-            if (showToUpdate != null)
-            {
-                showToUpdate.RunTime = showUpdated.RunTime;
-                showToUpdate.StartTime = showUpdated.StartTime;
-                showToUpdate.EndTime = showUpdated.EndTime;
-                _context.SaveChanges();
-            }
-            else
-            {
-                throw new Exception("Show not found");
-            }
+            return false;
         }
+     
     }
 }
