@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Models;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -37,7 +38,7 @@ namespace Infrastructure.Data.Repositories
 
         }
 
-        public List<Show> ViewPurchases(int clientId)
+        public List<ViewShowDto> ViewPurchases(int clientId)
         {
             var client = _context.Users.OfType<Client>().Include(c => c.BoughtShows).FirstOrDefault(c => c.Id == clientId);
 
@@ -46,8 +47,18 @@ namespace Infrastructure.Data.Repositories
                 throw new Exception("Cliente no encontrado");
             }
 
-            return client.BoughtShows; // devuelvo lista
+            var listShows = new List<ViewShowDto>();
+ 
+                foreach (var show in client.BoughtShows)
+                {
+                    var movieTitle = _context.Movies.FirstOrDefault(c => c.Id == show.MovieId).Title; //para mostrar el nombre de la peli
 
+                    var showDto = new ViewShowDto(show.Id, movieTitle, show.RunTime, show.StartTime);
+
+                    listShows.Add(showDto);
+                }
+
+            return listShows;
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -20,6 +21,7 @@ namespace WebCinema.Controllers
 
 
         [HttpPost("[action]/{showId}")]
+        [Authorize]
         public IActionResult BuyShow(int showId)
         {
             var clientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -32,10 +34,13 @@ namespace WebCinema.Controllers
                 
         }
 
-        [HttpGet("[action]/{clientId}")]
-        public IActionResult ViewPurchases(int clientId)
+        [HttpGet("[action]")]
+        [Authorize]
+        public IActionResult ViewPurchases()
         {
-            return Ok(_clientShowService.ViewPurchases(clientId));
+            var clientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value; //nunca va a retornar null xq se ejecuta solo si se loguea un user
+
+            return Ok(_clientShowService.ViewPurchases(int.Parse(clientId)));
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Models;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace Application.Interfaces
     public interface IClientShowRepository
     {
         public bool BuyShow(int showId, int clientId);
-        public List<Show> ViewPurchases(int clientId);
+        public List<ViewShowDto> ViewPurchases(int clientId);
     }
 }

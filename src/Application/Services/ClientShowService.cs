@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Models;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace Application.Services
             return _clientRepository.BuyShow(showId, clientId);
         }
 
-        public List<Show> ViewPurchases(int clientId)
+        public List<ViewShowDto> ViewPurchases(int clientId)
         {
             return _clientRepository.ViewPurchases(clientId);
         }
