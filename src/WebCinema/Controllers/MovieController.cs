@@ -20,7 +20,7 @@ namespace WebCinema.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult CreateMovie([FromBody]string title) // UserRole: 1 (client)  0 (admin) (solo los admin podran agregar admins)
+        public IActionResult CreateMovie([FromBody]string title)
         {
             var response = _movieService.CreateMovie(title);
             if (response == false)

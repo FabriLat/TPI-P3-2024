@@ -7,11 +7,11 @@ namespace WebCinema.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ShowContrller : ControllerBase
+    public class ShowController : ControllerBase
     {
         private readonly IShowService _showService;
 
-        public ShowContrller(IShowService showService)
+        public ShowController(IShowService showService)
         {
             _showService=showService;
         }   
