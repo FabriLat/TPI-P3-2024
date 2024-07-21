@@ -28,6 +28,7 @@ namespace WebCinema.Controllers
         }
 
         [HttpDelete("[action]")]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult DeleteShow(int movieId, TimeSpan startTime)
         {
             if (_showService.DeleteShow(movieId, startTime))
