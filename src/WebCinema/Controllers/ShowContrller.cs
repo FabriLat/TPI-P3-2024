@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,16 @@ namespace WebCinema.Controllers
         {
             if (_showService.DeleteShow(movieId, startTime))
                 return Ok($"La funcion de las {startTime} se elimino correctamente!!");
+
+            return NotFound("La pelicula o la funcion no exite");
+        }
+
+        [HttpPut("[action]")]
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult ModifyShow([FromQuery]int movieId, [FromQuery] int starTime, ModifyShow modifyShow)
+        {
+            if (_showService.ModifyShow(movieId,starTime, modifyShow))
+                return Ok("Se modifico con exito!!");
 
             return NotFound("La pelicula o la funcion no exite");
         }

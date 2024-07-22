@@ -41,11 +41,11 @@ namespace Infrastructure.Data.Repositories
 
         public bool DeleteShow(int movieId, string startTime) 
         {
-            var showToDelete = _context.Shows.FirstOrDefault(s => (s.MovieId == movieId && s.StartTime == startTime));
+            var showToModify = _context.Shows.FirstOrDefault(s => (s.MovieId == movieId && s.StartTime == startTime));
 
-            if (showToDelete != null)
+            if (showToModify != null)
             {
-                _context.Shows.Remove(showToDelete);
+                _context.Shows.Remove(showToModify);
                 _context.SaveChanges();
 
                 return true;
@@ -53,6 +53,22 @@ namespace Infrastructure.Data.Repositories
 
             return false;
         }
-     
+
+        public bool ModifyShow(int movieId, int starTime, ModifyShow modifyShow)
+        {
+            var showToModify = _context.Shows.FirstOrDefault(s => (s.MovieId == movieId && s.StartTime == modifyShow.StartTime));
+
+            if (showToModify != null)
+            {
+                showToModify.StartTime = modifyShow.StartTime;
+                showToModify.RunTime = modifyShow.RunTime;
+                showToModify.SeatsAvailable = modifyShow.SeatsAvailable;
+                _context.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }

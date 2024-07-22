@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,11 @@ namespace Application.Services
         public bool DeleteShow(int movieId, string startTime)
         {
             return _showRepository.DeleteShow(movieId, startTime);
+        }
+
+        public bool ModifyShow(int movieId, int starTime, ModifyShow modifyShow)
+        {
+            return (_showRepository.ModifyShow(movieId, starTime, modifyShow));
         }
     }
 }

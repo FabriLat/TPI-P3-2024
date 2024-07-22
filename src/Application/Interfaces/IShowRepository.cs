@@ -14,5 +14,6 @@ namespace Application.Interfaces
 
         public bool DeleteShow(int movieId, string startTime);
 
+        public bool ModifyShow(int movieId, int starTime, ModifyShow modifyShow);
     }
 }

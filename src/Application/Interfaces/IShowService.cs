@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,7 @@ namespace Application.Interfaces
         public bool AddShow(string runTime, string startTime, int movieId);
 
         public bool DeleteShow(int movieId, string startTime);
+
+        public bool ModifyShow(int movieId, int starTime, ModifyShow modifyShow);
     }
 }
