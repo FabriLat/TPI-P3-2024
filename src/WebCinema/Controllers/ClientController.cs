@@ -29,7 +29,7 @@ namespace WebCinema.Controllers
             {
                 return Ok();
             }
-            return NotFound();
+            return NotFound("El id no existe o no quedan mas asientos");
             
                 
         }

@@ -34,6 +34,7 @@ namespace WebCinema.Controllers
 
 
         [HttpGet("[action]")]
+        [AllowAnonymous]
         public List<Movie> GetAll()
         {
             return _movieService.GetAllMovies();

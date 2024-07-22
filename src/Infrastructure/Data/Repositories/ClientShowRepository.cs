@@ -30,7 +30,11 @@ namespace Infrastructure.Data.Repositories
 
             if (client != null && show != null)
             {
+                if (show.SeatsAvailable == 0)
+                    return false;
+
                 client.BoughtShows.Add(show);
+                show.SeatsAvailable =  show.SeatsAvailable - 1;
                 _context.SaveChanges();
                 return true;
             }
