@@ -91,6 +91,12 @@ builder.Services.AddAuthorization(options => //valida que el usuario logueado se
             context.User.HasClaim(c => c.Type.Contains("role") && c.Value == "Admin")));
 });
 
+builder.Services.AddAuthorization(options => //valida que el usuario logueado sea client
+{
+    options.AddPolicy("ClientOnly", policy =>
+        policy.RequireAssertion(context =>
+            context.User.HasClaim(c => c.Type.Contains("role") && c.Value == "Client")));
+});
 
 
 var app = builder.Build();

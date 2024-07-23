@@ -9,6 +9,7 @@ namespace WebCinema.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "ClientOnly")]
     public class ClientController : ControllerBase
     {
 
@@ -21,7 +22,6 @@ namespace WebCinema.Controllers
 
 
         [HttpPost("[action]/{showId}")]
-        [Authorize]
         public IActionResult BuyShow(int showId)
         {
             var clientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -35,7 +35,6 @@ namespace WebCinema.Controllers
         }
 
         [HttpGet("[action]")]
-        [Authorize]
         public IActionResult ViewPurchases()
         {
             var clientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value; //nunca va a retornar null xq se ejecuta solo si se loguea un user
@@ -43,5 +42,16 @@ namespace WebCinema.Controllers
             return Ok(_clientShowService.ViewPurchases(int.Parse(clientId)));
         }
 
+
+        [HttpDelete("[action]")]
+        public IActionResult CancelPurchease(string movieTitle, string startTime)
+        {
+            var clientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value; 
+
+            if(_clientShowService.CancelPurchease(int.Parse(clientId), movieTitle, startTime))
+                return Ok();
+
+            return NotFound("No se encontro la pelicula o la funcion");
+        }
     }
 }

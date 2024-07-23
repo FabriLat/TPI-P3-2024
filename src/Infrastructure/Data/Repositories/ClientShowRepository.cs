@@ -65,5 +65,30 @@ namespace Infrastructure.Data.Repositories
             return listShows;
         }
 
+
+        public bool CancelPurchease(int clientId, string movieTitle, string startTime)
+        {
+            var client = _context.Users.OfType<Client>().Include(c => c.BoughtShows).FirstOrDefault(c => c.Id == clientId);
+
+            var movie = _context.Movies.FirstOrDefault(m => m.Title == movieTitle);
+
+            if (client == null || movie == null)
+            {
+                throw new Exception("Cliente o pelicula no encontrado");
+            }
+            else
+            {
+                var showToRemove = client.BoughtShows.Where(s => s.MovieId == movie.Id && s.StartTime == startTime).FirstOrDefault();
+
+                if (showToRemove != null)
+                { 
+                    client.BoughtShows.Remove(showToRemove);
+                    _context.SaveChanges();
+                    return true;
+                }
+
+                return false;
+            }
+        }
     }
 }

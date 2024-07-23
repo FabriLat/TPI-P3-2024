@@ -62,8 +62,7 @@ namespace WebCinema.Controllers
         [HttpDelete("[action]/{title}")]
         public IActionResult DeleteMovie([FromRoute]string title)
         {
-            try
-            {
+
                 var response = _movieService.DeleteMovie(title);
                 if (response)
                 {
@@ -72,12 +71,7 @@ namespace WebCinema.Controllers
                 {
                     return StatusCode(404);
                 }
-                
-            }
-            catch (Exception e)
-            {
-                return StatusCode(404, $"Error: {e}");
-            }
+
         }
 
 

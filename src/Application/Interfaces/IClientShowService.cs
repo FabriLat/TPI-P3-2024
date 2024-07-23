@@ -12,5 +12,7 @@ namespace Application.Interfaces
     {
         public bool BuyShow(int showId, int clientId);
         public List<ViewShowDto> ViewPurchases(int clientId);
+
+        public bool CancelPurchease(int clientId, string movieTitle, string startTime);
     }
 }

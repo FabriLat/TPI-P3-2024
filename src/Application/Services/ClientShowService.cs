@@ -30,5 +30,9 @@ namespace Application.Services
             return _clientRepository.ViewPurchases(clientId);
         }
 
+        public bool CancelPurchease(int clientId, string movieTitle, string startTime)
+        {
+            return _clientRepository.CancelPurchease(clientId, movieTitle, startTime);
+        }
     }
 }
