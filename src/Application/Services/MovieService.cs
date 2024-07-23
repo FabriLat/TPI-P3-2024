@@ -74,6 +74,14 @@ namespace Application.Services
             }
         }
 
+        public bool CheckMovieAvailability(string title)
+        {
+            var movie = _movieRepository.GetMovieByTitle(title);
+
+            return movie != null;
+        }
+
+
 
     }
 }

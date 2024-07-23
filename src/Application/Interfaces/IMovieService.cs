@@ -20,6 +20,8 @@ namespace Application.Interfaces
 
         public List<Movie> GetAllMovies();
 
+        public bool CheckMovieAvailability(string title);
+
 
     }
 }

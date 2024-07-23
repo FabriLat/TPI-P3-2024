@@ -78,11 +78,17 @@ namespace WebCinema.Controllers
             {
                 return StatusCode(404, $"Error: {e}");
             }
-           
-            
         }
 
 
+        [HttpGet("[action]")]
+        [AllowAnonymous]
+        public IActionResult CheckMovieAvailability([FromQuery] string title)
+        {
+            bool isAvailable = _movieService.CheckMovieAvailability(title);
+
+            return Ok(isAvailable);
+        }
     }
 }
 
