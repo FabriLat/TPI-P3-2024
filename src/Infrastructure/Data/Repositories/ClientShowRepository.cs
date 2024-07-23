@@ -70,7 +70,7 @@ namespace Infrastructure.Data.Repositories
         {
             var client = _context.Users.OfType<Client>().Include(c => c.BoughtShows).FirstOrDefault(c => c.Id == clientId);
 
-            var movie = _context.Movies.FirstOrDefault(m => m.Title == movieTitle);
+            var movie = _context.Movies.Include(m => m.Shows).FirstOrDefault(m => m.Title.Equals(movieTitle));
 
             if (client == null || movie == null)
             {

@@ -29,7 +29,7 @@ namespace Application.Services
             return _showRepository.DeleteShow(movieId, startTime);
         }
 
-        public bool ModifyShow(int movieId, int starTime, ModifyShow modifyShow)
+        public bool ModifyShow(int movieId, string starTime, ModifyShow modifyShow)
         {
             return (_showRepository.ModifyShow(movieId, starTime, modifyShow));
         }

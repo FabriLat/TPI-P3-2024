@@ -40,7 +40,7 @@ namespace WebCinema.Controllers
 
         [HttpPut("[action]")]
         [Authorize(Policy = "AdminOnly")]
-        public IActionResult ModifyShow([FromQuery]int movieId, [FromQuery] int starTime, ModifyShow modifyShow)
+        public IActionResult ModifyShow([FromQuery]int movieId, [FromQuery] string starTime, ModifyShow modifyShow)
         {
             if (_showService.ModifyShow(movieId,starTime, modifyShow))
                 return Ok("Se modifico con exito!!");

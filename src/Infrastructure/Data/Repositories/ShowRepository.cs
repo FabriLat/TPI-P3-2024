@@ -54,9 +54,9 @@ namespace Infrastructure.Data.Repositories
             return false;
         }
 
-        public bool ModifyShow(int movieId, int starTime, ModifyShow modifyShow)
+        public bool ModifyShow(int movieId, string starTime, ModifyShow modifyShow)
         {
-            var showToModify = _context.Shows.FirstOrDefault(s => (s.MovieId == movieId && s.StartTime == modifyShow.StartTime));
+            var showToModify = _context.Shows.FirstOrDefault(s => (s.MovieId == movieId && s.StartTime == starTime));
 
             if (showToModify != null)
             {
